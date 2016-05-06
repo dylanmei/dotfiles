@@ -11,3 +11,4 @@ alias fig="docker-compose"
 alias tf="terraform"
 
 alias -g :fzf='$(fzf)'
+alias -g :null='/dev/null'
