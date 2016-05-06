@@ -5,6 +5,8 @@ export EDITOR=nvim
 export VISUAL=nvim
 bindkey -e
 
+export PURE_PROMPT_SYMBOL='%%'
+
 source ~/.zplug/zplug
 
 zplug "b4b4r07/enhancd", use:enhancd.sh
