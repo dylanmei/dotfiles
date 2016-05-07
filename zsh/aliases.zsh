@@ -12,3 +12,6 @@ alias tf="terraform"
 
 alias -g :fzf='$(fzf)'
 alias -g :null='/dev/null'
+
+alias nsnitro=$GOPATH/src/github.com/dylanmei/go-nsnitro/bin/nsnitro
+alias redis-cli='docker run -i --rm --net=host redis:alpine redis-cli'
