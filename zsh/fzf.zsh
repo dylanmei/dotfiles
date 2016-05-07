@@ -1,4 +1,4 @@
-if [[ -f /etc/profile.d/fzf.zsh ]]; then
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
   _fzf_compgen_path() {
     echo "$1"
     \find -L "$1" \
@@ -12,6 +12,6 @@ if [[ -f /etc/profile.d/fzf.zsh ]]; then
       -a -not -path "$1" -print 2> /dev/null | sed 's@^\./@@'
   }
 
-  source /etc/profile.d/fzf.zsh
+  source /usr/share/fzf/key-bindings.zsh
 fi
 
