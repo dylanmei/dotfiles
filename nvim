@@ -11,10 +11,11 @@ Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'jonhiggs/vim-readline'
 
-Plug 'fatih/vim-go'
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'chase/vim-ansible-yaml'
+Plug 'fatih/vim-go'
+Plug 'elixir-lang/vim-elixir'
 
 call plug#end()
 
