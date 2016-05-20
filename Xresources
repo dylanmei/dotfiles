@@ -46,7 +46,6 @@ URxvt.perl-ext-common: default,matcher,selection-to-clipboard
 URxvt.matcher.button:  1
 URxvt.urlLauncher:     firefox
 
-
 ! colors (via http://github.com/altercation/solarized)
 
 *background: #020212
