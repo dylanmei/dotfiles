@@ -105,7 +105,8 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 # app-related bindings
 bindsym $mod+Return exec i3-sensible-terminal
 #bindsym $mod+d exec dmenu_run
-bindsym $mod+x exec i3-dmenu-desktop --dmenu="rofi -dmenu -i -p ' →  '"
+bindsym $mod+d exec i3-dmenu-desktop --dmenu="rofi -dmenu -i -p ' →  '"
+bindsym $mod+Shift+d exec rofi-windows
 bindsym $mod+q exec rofi-quit
 bindsym $mod+b exec firefox
 bindsym $mod+c exec clipster -s
