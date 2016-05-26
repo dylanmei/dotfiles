@@ -1,15 +1,8 @@
 #!/usr/bin/env zsh
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin
-export EDITOR=nvim
-export VISUAL=nvim
-bindkey -e
-
-export PURE_PROMPT_SYMBOL='%%'
-
 source ~/.zplug/zplug
 
-zplug "b4b4r07/enhancd", use:enhancd.sh
+zplug "b4b4r07/enhancd", use:init.sh
 zplug "zsh-users/zsh-completions"
 zplug "horosgrisa/zsh-history-substring-search"
 #zplug "zsh-users/zsh-history-substring-search"
