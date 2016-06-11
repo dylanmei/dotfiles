@@ -1,6 +1,6 @@
+alias ~="cd ~"
 alias ..="ENHANCD_DISABLE_DOT=1 cd .."
 alias -- -="ENHANCD_DISABLE_HYPHEN=1 cd -"
-alias ~="ENHANCD_DISABLE_HYPHEN=1 cd ~"
 alias ll="ls -lAFh --group-directories-first"
 alias tree="tree -C"
 
