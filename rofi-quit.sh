@@ -4,7 +4,7 @@ res=$(echo -e "quit\nreboot\nshutdown\nsuspend\nhibernate" | rofi -dmenu -p " ÔÅ
 if [ $? -eq 0 ]; then
   case "$res" in
     quit)
-      systemctl --user exit ;;
+      i3-msg exit ;;
     shutdown)
       systemctl "poweroff" ;;
     *)
