@@ -14,6 +14,7 @@ Plug 'jonhiggs/vim-readline'
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'chase/vim-ansible-yaml'
+Plug 'hashivim/vim-terraform'
 Plug 'fatih/vim-go'
 Plug 'elixir-lang/vim-elixir'
 
@@ -38,7 +39,6 @@ set softtabstop=2 tabstop=2 shiftwidth=2 expandtab
 set conceallevel=0
 nnoremap <esc><esc> :nohl<cr>
 
-autocmd ColorScheme janah highlight Normal ctermbg=233
 colorscheme janah
 
 " lightline
