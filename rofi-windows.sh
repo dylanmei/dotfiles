@@ -16,7 +16,7 @@ function get_icon()
 {
   local program="$1"
   case $program in
-    urxvt)
+    termite)
       echo -n "" ;;
     slack)
       echo -n "" ;;

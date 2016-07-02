@@ -1,0 +1,77 @@
+[options]
+resize_grip             = false
+scroll_on_output        = false
+scroll_on_keystroke     = true
+audible_bell            = false
+visible_bell            = false
+mouse_autohide          = false
+allow_bold              = false
+dynamic_title           = true
+urgent_on_bell          = false
+browser                 = chromium
+clickable_url           = true
+font                    = Hack 14
+#font                    = EnvyCodeR 8
+#font                    = PragmataPro 9
+scrollback_lines        = 5000
+search_wrap             = true
+geometry                = 400x400
+
+[colors]
+foreground_bold         = #4D4D4C
+foreground_dim          = #888888
+highlight               = #839496
+
+# Hybrid ( i think )
+# For the custom color scheme
+foreground              = #c5c8c6
+background              = rgba(16, 16, 16, 0.9)
+cursor                  = #505050
+color0                  = #282a2e
+color1                  = #a54242
+color2                  = #8c9440
+color3                  = #de935f
+color4                  = #5f819d
+color5                  = #85678f
+color6                  = #5e8d87
+color7                  = #707880
+color8                  = #505050
+color9                  = #cc6666
+color10                 = #b5bd68
+color11                 = #f0c674
+color12                 = #81a2be
+color13                 = #b294bb
+color14                 = #8abeb7
+color15                 = #c5c8c6
+color16                 = #d28445
+color17                 = #8f5536
+color18                 = #202020
+color19                 = #303030
+color20                 = #b0b0b0
+
+
+# For paper
+#foreground              = #4D4D4C
+#background              = #EEEEEE
+#cursor                  = #7e705a
+#color0  = #EDEDED
+#color1  = #D7005F
+#color2  = #90a959
+#color3  = #D75F00
+#color4  = #4271AE
+#color5  = #8959A8
+#color6  = #3E999F
+#color7  = #4D4D4C
+#color8  = #969694
+#color9  = #D7005F
+#color10 = #718C00
+#color11 = #D75F00
+#color12 = #4271AE
+#color13 = #8959A8
+#color14 = #3E999F
+#color15 = #4D4D4C
+##color16 = #d28b71
+##color17 = #bb9584
+##color18 = #534636
+##color19 = #645240
+##color20 = #b8afad
