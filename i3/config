@@ -158,14 +158,14 @@ mode "  " {
   bindsym Escape mode "default"
 }
 
-bindsym Print mode "  "
-mode "  " {
-  #bindsym Print exec maim ~/Pictures/screenshot-$(date +%F-%T).png
-  #bindsym Print+Shift exec  maim ~/Pictures/screenshot-$(date +%F-%T).png -s 0.6,0,0,0.6 -p 5
-
-  bindsym Return exec "notify-send Hello"
-  bindsym Escape mode "default"
-}
+#bindsym Print mode "  "
+#mode "  " {
+#  #bindsym Print exec maim ~/Pictures/screenshot-$(date +%F-%T).png
+#  #bindsym Print+Shift exec  maim ~/Pictures/screenshot-$(date +%F-%T).png -s 0.6,0,0,0.6 -p 5
+#
+#  bindsym Return exec "notify-send Hello"
+#  bindsym Escape mode "default"
+#}
 
 # widow colors          border   background  text     indicator
 client.focused          $color01 $color01    $color07 $color0F
