@@ -19,3 +19,4 @@ alias -g :yank='| yank'
 
 alias nsnitro=$GOPATH/src/github.com/dylanmei/go-nsnitro/bin/nsnitro
 alias redis-cli='docker run -i --rm --net=host redis:alpine redis-cli'
+alias rvc='docker run --rm -it -v $HOME/.rvc:/root/.rvc -e "RBVMOMI_USER=$VSPHERE_USER" -e "RBVMOMI_PASSWORD=$VSPHERE_PASSWORD" lamw/rvc rvc $VSPHERE_SERVER'
