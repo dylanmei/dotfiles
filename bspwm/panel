@@ -1,0 +1,95 @@
+#!/bin/sh
+
+export COLOR_ICON="#FF2fd496"
+export COLOR_TEXT="#FFC5C8C6"
+
+export COLOR_FOREGROUND='#FF2fd496'
+export COLOR_BACKGROUND='#FF181818'
+
+if [ $(pgrep -cx panel) -gt 1 ]; then
+  printf "%s\n" "The panel is already running!" >&2 && exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+pipe=$(mktemp -u)
+mkfifo $pipe
+
+clock() {
+  while true; do
+    echo -e 'C' '\uf017' $(date +'%a %d %b %p %H:%M %p')
+    sleep 1.0
+  done
+}
+
+#bspc config top_padding 32
+{ bspc subscribe report > $pipe; } &
+{ xtitle -sf 'T%s'      > $pipe; } &
+{ clock                 > $pipe; } &
+
+bspwm_data=""
+title_data=""
+clock_data=""
+while read line; do
+  num_monitors=$(bspc query -M | wc -l)
+  case $line in
+    C*)
+      clock_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
+      ;;
+    T*)
+      title_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
+      ;;
+    W*)
+      IFS=':'
+      bspwm_data=""
+
+      set -- ${line#?}
+      while [ $# -gt 0 ]; do
+        item=$1
+        name=${item#?}
+        case $item in
+          M*)
+            # active monitor
+            if [ $num_monitors -gt 1 ] ; then
+              bspwm_data="$bspwm_data %{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${name} %{B-}%{F-}  "
+            fi
+            ;;
+          m*)
+            # inactive monitor
+            if [ $num_monitors -gt 1 ] ; then
+              bspwm_data="$bspwm_data %{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${name} %{B-}%{F-}  "
+            fi
+            ;;
+          O*)
+            # focused occupied desktop
+            bspwm_data="${bspwm_data}%{F$COLOR_ICON}%{B$COLOR_FOREGROUND}%{U$COLOR_FOREGROUND}%{+u} ${name} %{-u}%{B-}%{F-}"
+            ;;
+          F*)
+            # focused free desktop
+            bspwm_data="${bspwm_data}%{F$COLOR_ICON}%{B$COLOR_FOREGROUND}%{U$COLOR_FOREGROUND}%{+u} ${name} %{-u}%{B-}%{F-}"
+            ;;
+          U*)
+            # focused urgent desktop
+            bspwm_data="${bspwm_data}%{F$COLOR_ICON}%{B$COLOR_FOREGROUND}%{U$COLOR_FOREGROUND}%{+u} ${name} %{-u}%{B-}%{F-}"
+            ;;
+          o*)
+            # occupied desktop
+            bspwm_data="${bspwm_data}%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${name} %{B-}%{F-}"
+            ;;
+          f*)
+            # free desktop
+            bspwm_data="${bspwm_data}%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${name} %{B-}%{F-}"
+            ;;
+          u*)
+            # urgent desktop
+            bspwm_data="${bspwm_data}%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${name} %{B-}%{F-}"
+            ;;
+        esac
+        shift
+      done
+      ;;
+  esac
+
+  echo "%{l}${bspwm_data}%{c}${title_data}%{r}${clock_data}"
+done < $pipe | lemonbar -a 32 -g x32 -f "FontAwesome:size=12" -f "Hack:size=12" -F $COLOR_FOREGROUND -B $COLOR_BACKGROUND
+
+rm $pipe
