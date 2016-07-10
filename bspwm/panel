@@ -3,6 +3,7 @@
 [[ $(pgrep -cx panel) -gt 1 ]] && printf "%s\n" "The panel is already running!" >&2 && exit 1
 
 . $HOME/.config/bspwm/color
+. $HOME/.config/bspwm/network
 . $HOME/.config/bspwm/clock
 . $HOME/.config/bspwm/power
 . $HOME/.config/bspwm/mixer
@@ -15,6 +16,7 @@ bspc config top_padding 25
 
 { bspc subscribe report > $pipe; } &
 { xtitle -sf 'T%s'      > $pipe; } &
+{ network               > $pipe; } &
 { clock                 > $pipe; } &
 { power                 > $pipe; } &
 { mixer                 > $pipe; } &
@@ -24,14 +26,18 @@ title_data=""
 power_data=""
 clock_data=""
 mixer_data=""
+network_data=""
 while read line; do
   num_monitors=$(bspc query -M | wc -l)
   case $line in
-    C*)
-      clock_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
-      ;;
     T*)
       title_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
+      ;;
+    N*)
+      network_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
+      ;;
+    C*)
+      clock_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
       ;;
     P*)
       power_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
@@ -70,7 +76,7 @@ while read line; do
             ;;
           U*)
             # focused urgent desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_FOCUSED_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u}  ${name}  %{-u}%{B-}%{F-}"
+            bspwm_data="${bspwm_data}%{F$COLOR_URGENT_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u}  ${name}  %{-u}%{B-}%{F-}"
             ;;
           o*)
             # occupied desktop
@@ -82,7 +88,7 @@ while read line; do
             ;;
           u*)
             # urgent desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u}  ${name}  %{-u}%{B-}%{F-}"
+            bspwm_data="${bspwm_data}%{F$COLOR_URGENT_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u}  ${name}  %{-u}%{B-}%{F-}"
             ;;
         esac
         shift
@@ -90,6 +96,6 @@ while read line; do
       ;;
   esac
 
-  echo "%{l} ${bspwm_data}%{c}${title_data}%{r}${mixer_data} ${power_data} ${clock_data} "
+  echo "%{l} ${bspwm_data}%{c}${title_data}%{r}${mixer_data} ${network_data} ${power_data} ${clock_data} "
 done < $pipe | lemonbar -g x25 -f "FontAwesome:size=10" -f "Hack:size=10" -F $COLOR_FOREGROUND -B $COLOR_BACKGROUND
 
