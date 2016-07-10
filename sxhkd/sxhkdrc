@@ -28,8 +28,8 @@ super + Escape
 # bspwm hotkeys
 #
 
-#super + {_,shift + }d
-#  rofi-desktop {new,rename}
+super + {_,shift + }d
+  rofi-desktops {new,rename}
 
 # remove desktop
 super + alt + d
