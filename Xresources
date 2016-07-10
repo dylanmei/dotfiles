@@ -14,22 +14,22 @@ Xft.hintstyle:  hintslight
 !
 ! Rofi settings
 !
-rofi.opacity: 98
-rofi.fullscreen: false
-rofi.width: 33
+!rofi.opacity: 98
+rofi.fullscreen: true
+rofi.width: 200
+rofi.separator-style: none
 rofi.hide-scrollbar: true
 rofi.fixed-num-lines: true
-rofi.separator-style: none
-rofi.m: 0
+rofi.lines: 6
 rofi.bw: 0
-rofi.eh: 2
-rofi.line-margin: 0
-rofi.lines: 8
+rofi.eh: 1
+rofi.line-margin: 5
+rofi.padding: 420
+rofi.left: 200
 rofi.case-sensitive: false
 
-rofi.font: dejavu 14
+rofi.font: dejavu 18
 rofi.color-enabled: true
-rofi.color-window: #002b37, #002b37, #003642
-rofi.color-normal: #002b37, #95AAAD, #002b37, #003642, #eeffff
-rofi.color-active: #002b37, #008ed4, #002b37, #003642, #008ed4
-rofi.color-urgent: #002b37, #da4281, #002b37, #003642, #da4281
+rofi.color-window: argb:dd2b3038, #000000
+rofi.color-normal: argb:00000000, #667777, argb:00000000, argb:00000000, #ffffff
+
