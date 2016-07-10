@@ -1,0 +1,20 @@
+#!/bin/bash
+
+power() {
+  while true; do
+    icon=''
+    level='ch'
+    if [[ $(cat /sys/class/power_supply/ADP1/online) != 1 ]]; then
+      icon=''
+      level=$(acpi -b | grep -o '[[:digit:]]\+%' | sed 's/%//')
+      [[ $level -gt 10 ]] && icon=''
+      [[ $level -gt 30 ]] && icon=''
+      [[ $level -gt 60 ]] && icon=''
+      [[ $level -gt 80 ]] && icon=''
+      level="$level%"
+    fi
+
+    echo -e 'P' $icon $level
+    sleep 60.0
+  done
+}

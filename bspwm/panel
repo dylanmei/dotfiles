@@ -1,58 +1,29 @@
 #!/bin/sh
 
-COLOR_FOREGROUND='#99ffffff'
-COLOR_BACKGROUND='#FF212121'
-COLOR_FOCUSED_FOREGROUND='#FFffffff'
-COLOR_FOCUSED_BACKGROUND='#FF000000'
-COLOR_EMPTY_FOREGROUND='#33ffffff'
-COLOR_EMPTY_BACKGROUND='#FF212121'
-COLOR_URGENT_FOREGROUND='#FFff3333'
-COLOR_URGENT_BACKGROUND='#FF000000'
+[[ $(pgrep -cx panel) -gt 1 ]] && printf "%s\n" "The panel is already running!" >&2 && exit 1
 
-if [ $(pgrep -cx panel) -gt 1 ]; then
-  printf "%s\n" "The panel is already running!" >&2 && exit 1
-fi
+. $HOME/.config/bspwm/color
+. $HOME/.config/bspwm/clock
+. $HOME/.config/bspwm/power
+. $HOME/.config/bspwm/mixer
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 pipe=$(mktemp -u)
 mkfifo $pipe
 
-clock() {
-  while true; do
-    echo -e 'C' '\uf017' $(date +'%a %d %b %H:%M %p')
-    sleep 1.0
-  done
-}
-
-power() {
-  while true; do
-    label=' ch'
-    if [[ $(cat /sys/class/power_supply/ADP1/online) != 1 ]]; then
-      icon=''
-      level=$(acpi -b | grep -o '[[:digit:]]\+%' | sed 's/%//')
-      [[ $level -gt 10 ]] && icon=''
-      [[ $level -gt 30 ]] && icon=''
-      [[ $level -gt 60 ]] && icon=''
-      [[ $level -gt 80 ]] && icon=''
-
-      label="$icon $level\%"
-    fi
-
-    echo -e 'P' $label
-    sleep 60.0
-  done
-}
-
 bspc config top_padding 25
+
 { bspc subscribe report > $pipe; } &
 { xtitle -sf 'T%s'      > $pipe; } &
 { clock                 > $pipe; } &
 { power                 > $pipe; } &
+{ mixer                 > $pipe; } &
 
 bspwm_data=""
 title_data=""
 power_data=""
 clock_data=""
+mixer_data=""
 while read line; do
   num_monitors=$(bspc query -M | wc -l)
   case $line in
@@ -64,6 +35,9 @@ while read line; do
       ;;
     P*)
       power_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
+      ;;
+    V*)
+      mixer_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
       ;;
     W*)
       IFS=':'
@@ -116,6 +90,6 @@ while read line; do
       ;;
   esac
 
-  echo "%{l} ${bspwm_data}%{c}${title_data}%{r}${power_data} ${clock_data} "
+  echo "%{l} ${bspwm_data}%{c}${title_data}%{r}${mixer_data} ${power_data} ${clock_data} "
 done < $pipe | lemonbar -g x25 -f "FontAwesome:size=10" -f "Hack:size=10" -F $COLOR_FOREGROUND -B $COLOR_BACKGROUND
 
