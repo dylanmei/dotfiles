@@ -2,30 +2,38 @@
 # wm independent hotkeys
 #
 
-# terminal emulator
 super + Return
 	termite
 
-# program launcher
 super + space
   rofi -show run -i -p 'run: '
 
 super + q
   rofi-quit
 
-#super + {_,shift + }d
-#  rofi-desktop {new,rename}
+XF86AudioRaiseVolume
+  pulseaudio-ctl up
 
-super + alt + d
-  bspc desktop focused -r
+XF86AudioLowerVolume
+  pulseaudio-ctl down
 
-# make sxhkd reload its configuration files:
+XF86AudioMute
+  pulseaudio-ctl mute
+
+# reload sxhkd
 super + Escape
 	pkill -USR1 -x sxhkd
 
 #
 # bspwm hotkeys
 #
+
+#super + {_,shift + }d
+#  rofi-desktop {new,rename}
+
+# remove desktop
+super + alt + d
+  bspc desktop focused -r
 
 # close and kill
 super + {_,shift + }w
@@ -117,19 +125,8 @@ super + ctrl + shift + space
 super + {Page_Up,Page_Down}
   bspc desktop -m {T,B}
 
-# move a floating window
-super + {Left,Down,Up,Right}
-  bspc node -v {-20 0,0 20,0 -20,20 0}
-
-
 super + button1
   bspc pointer -g move
 
 super + shift + button1
   bspc pointer -g resize_corner
-
-#super + !button{1-3}
-#  bspc pointer -t %i %i
-#
-#super + @button{1-3}
-#  bspc pointer -u
