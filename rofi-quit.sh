@@ -1,11 +1,14 @@
 #!/bin/sh
 
-res=$(echo -e "quit\nreboot\nshutdown\nsuspend\nhibernate" | rofi -dmenu -p "   " -l 5)
+res=$(echo -e "bspc quit\nreboot\nshutdown\nsuspend\nhibernate" | rofi -dmenu -p "quit: " -l 5)
 if [ $? -eq 0 ]; then
   case "$res" in
-    quit)
-      i3-msg exit ;;
-    shutdown)
+    "bspc quit")
+      #i3-msg exit ;;
+      pkill -x panel
+      bspc quit
+      ;;
+    "shutdown")
       systemctl "poweroff" ;;
     *)
       systemctl "$res" ;;
