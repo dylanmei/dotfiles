@@ -3,7 +3,7 @@
 bspc config border_width   2
 bspc config window_gap     15
 
-bspc config split_ratio           0.50
+bspc config split_ratio           0.56
 bspc config borderless_monocle    true
 bspc config gapless_monocle       false
 bspc config focus_by_distance     true
@@ -34,6 +34,11 @@ for monitor in $(bspc query -M); do
     bspc monitor T -d ''
   fi
 done
+
+# window rules
+bspc rule -a zoom state=floating
+bspc rule -a Gimp state=floating
+#bspc rule -a Vmware state=floating
 
 # autostart
 feh --bg-scale $HOME/Pictures/ship.jpg
