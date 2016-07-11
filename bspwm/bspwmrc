@@ -25,15 +25,21 @@ bspc config active_private_border_color  "#2b3032"
 bspc config normal_private_border_color  "#2b3032"
 bspc config urgent_border_color          "#2b3032"
 
-for monitor in $(bspc query -M); do
-  if [ "$monitor" == "eDP1" ]; then
-    bspc monitor $monitor -n B
-    bspc monitor B -d '' '' ''
-  elif [ -n "$monitor" ]; then
-    bspc monitor $monitor -n T
-    bspc monitor T -d ''
-  fi
-done
+primary_monitor="eDP1"
+num_monitors=$(bspc query -M | wc -l)
+
+if [[ $num_monitors -eq 1 ]]; then
+  bspc monitor $primary_monitor -n P
+  bspc monitor P -d '' '' ''
+else
+  secondary_monitor=$(bspc query -M | grep -v $primary_monitor)
+
+  bspc monitor $primary_monitor -n B
+  bspc monitor B -d '' ''
+
+  bspc monitor $secondary_monitor -n T
+  bspc monitor T -d ''
+fi
 
 # window rules
 bspc rule -a zoom state=floating
