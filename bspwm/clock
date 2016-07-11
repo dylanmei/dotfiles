@@ -3,6 +3,6 @@
 clock() {
   while true; do
     echo -e 'C' '' $(date +'%a %d %b %H:%M %p')
-    sleep 1.0
+    sleep 5.0
   done
 }

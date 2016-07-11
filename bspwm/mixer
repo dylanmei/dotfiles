@@ -8,7 +8,7 @@ mixer() {
     muted=$(echo $status | awk '{print $2}')
 
     icon=''
-    vol=mute
+    vol=shh
 
     if [ "$muted" != "yes" ]; then
       vol="$level%"
@@ -23,4 +23,5 @@ mixer() {
     sleep 1.0
   done
 }
+
 #mixer
