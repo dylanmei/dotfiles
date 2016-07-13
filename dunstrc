@@ -1,5 +1,5 @@
 [global]
-    font = "Hack 10"
+    font = "DejaVu 12"
     allow_markup = yes
     format = "<b>%s %p</b>\n%b"
     sort = yes
@@ -16,7 +16,7 @@
     show_indicators = yes
     line_height = 0
     separator_height = 2
-    padding = 10
+    padding = 5
     horizontal_padding = 10
     separator_color = frame
     # transparency = 10
@@ -28,7 +28,7 @@
     #icon_folders = /usr/share/icons/Flattr/16x16/status/:/usr/share/icons/Flattr/16x16/devices/
 
 [frame]
-    width = 4
+    width = 2
     color = "#455057"
 
 [shortcuts]

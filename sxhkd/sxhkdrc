@@ -28,16 +28,13 @@ super + Escape
 # bspwm hotkeys
 #
 
+# new/rename desktop
 super + {_,shift + }d
   rofi-desktops {new,rename}
 
-# remove desktop
-super + alt + d
-  bspc desktop focused -r
-
-# close and kill
+# remove window/desktop
 super + {_,shift + }w
-	bspc node -{c,k}
+  bspc {node -c,desktop focused -r}
 
 # alternate between the tiled and monocle layout
 super + m
