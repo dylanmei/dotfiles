@@ -25,7 +25,7 @@ bspc config active_private_border_color  "#2b3032"
 bspc config normal_private_border_color  "#2b3032"
 bspc config urgent_border_color          "#2b3032"
 
-primary_monitor="eDP1"
+primary_monitor="eDP-1"
 num_monitors=$(bspc query -M | wc -l)
 
 if [[ $num_monitors -eq 1 ]]; then
@@ -33,12 +33,16 @@ if [[ $num_monitors -eq 1 ]]; then
   bspc monitor P -d '' '' ''
 else
   secondary_monitor=$(bspc query -M | grep -v $primary_monitor)
+  xrandr --output $primary_monitor --primary \
+         --output $secondary_monitor --above $primary_monitor \
+         --output VIRTUAL1 --off
 
   bspc monitor $primary_monitor -n B
   bspc monitor B -d '' ''
 
   bspc monitor $secondary_monitor -n T
   bspc monitor T -d ''
+  bspc monitor T -s B
 fi
 
 # window rules
