@@ -2,27 +2,35 @@
 
 network() {
   while true; do
-    read lo int1 int2 etc <<< `ip link | sed -n 's/^[0-9]: \(.*\):.*$/\1/p'`
+    read int1 int2 int3 etc <<< $(ip link | grep -E "(enp|wlp)" | sed -n 's/.*: \(.*\):.*$/\1/p')
 
     if iwconfig $int1 >/dev/null 2>&1; then
         wlan0=$int1
         eth0=$int2
-    else
-        wlan0=$int2
+        eth1=$int3
+    elif iwconfig $int2 >/dev/null 2>&1; then
         eth0=$int1
+        wlan0=$int2
+        eth1=$int3
+    elif iwconfig $int3 >/dev/null 2>&1; then
+        eth0=$int1
+        eth1=$int2
+        wlan0=$int3
     fi
 
     int=""
-    ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0 || int=$wlan0
+    ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0
+    ip link show $eth1 | grep 'state UP' >/dev/null && int=$eth1
+    [[ -z "$int" ]] && int=$wlan0
 
-    if [[ "$int" != "$eth0" && -d /proc/sys/net/ipv4/conf/tun0 ]]; then
+    if [[ -d /proc/sys/net/ipv4/conf/tun0 ]]; then
       echo -e 'N\uf00c vpn'
     else
       ping -W 1 -c 1 8.8.8.8 >/dev/null 2>&1 &&
         echo -e 'N\uf00c ' $int || echo -e 'N\uf00d ' $wlan0
     fi
 
-    sleep 1.0
+    sleep 1.5
   done
 }
 
