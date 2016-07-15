@@ -4,33 +4,38 @@ network() {
   while true; do
     read int1 int2 int3 etc <<< $(ip link | grep -E "(enp|wlp)" | sed -n 's/.*: \(.*\):.*$/\1/p')
 
-    if iwconfig $int1 >/dev/null 2>&1; then
-        wlan0=$int1
-        eth0=$int2
-        eth1=$int3
-    elif iwconfig $int2 >/dev/null 2>&1; then
-        eth0=$int1
-        wlan0=$int2
-        eth1=$int3
-    elif iwconfig $int3 >/dev/null 2>&1; then
-        eth0=$int1
-        eth1=$int2
-        wlan0=$int3
-    fi
-
-    int=""
-    ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0
-    ip link show $eth1 | grep 'state UP' >/dev/null && int=$eth1
-    [[ -z "$int" ]] && int=$wlan0
-
     if [[ -d /proc/sys/net/ipv4/conf/tun0 ]]; then
-      echo -e 'N\uf00c vpn'
+      echo "N vpn"
     else
-      ping -W 1 -c 1 8.8.8.8 >/dev/null 2>&1 &&
-        echo -e 'N\uf00c ' $int || echo -e 'N\uf00d ' $wlan0
+      if iwconfig $int1 >/dev/null 2>&1; then
+          wlan0=$int1
+          eth0=$int2
+          eth1=$int3
+      elif iwconfig $int2 >/dev/null 2>&1; then
+          eth0=$int1
+          wlan0=$int2
+          eth1=$int3
+      elif iwconfig $int3 >/dev/null 2>&1; then
+          eth0=$int1
+          eth1=$int2
+          wlan0=$int3
+      fi
+
+      interface=""
+      ip link show $eth0 | grep 'state UP' >/dev/null && interface=$eth0
+      ip link show $eth1 | grep 'state UP' >/dev/null && interface=$eth1
+      [[ -z "$interface" ]] && interface=$wlan0
+
+      if [[ "$interface" == "$wlan0" ]]; then
+        ping -W 1 -c 1 8.8.8.8 >/dev/null 2>&1 &&
+          echo "N $interface" || echo "N $wlan0"
+      else
+        ping -W 1 -c 1 8.8.8.8 >/dev/null 2>&1 &&
+          echo "N $interface" || echo "N $wlan0"
+      fi
     fi
 
-    sleep 1.5
+    sleep 2.5
   done
 }
 

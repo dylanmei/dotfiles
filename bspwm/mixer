@@ -1,26 +1,27 @@
 #!/bin/sh
 
 mixer() {
-  # alsa volume
   while true; do
     status=$(pulseaudio-ctl full-status)
     level=$(echo $status | awk '{print $1}')
     muted=$(echo $status | awk '{print $2}')
 
-    icon=''
-    vol=shh
-
-    if [ "$muted" != "yes" ]; then
+    if [ "$muted" == "yes" ]; then
+      vol=mute
+      icon=''
+    elif [ $level -le 25 ]; then
+      vol=shhh
+      icon=''
+    elif [ $level -le 95 ]; then
       vol="$level%"
-      if [ $level -lt 50 ]; then
-        icon=''
-      else
-        icon=''
-      fi
+      icon=''
+    else
+      vol=boom
+      icon=''
     fi
 
     echo "V${icon} ${vol}"
-    sleep 1.0
+    sleep 5.0
   done
 }
 
