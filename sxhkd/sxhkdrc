@@ -11,6 +11,9 @@ super + space
 super + q
   rofi-quit
 
+mod3 + s
+  fromscratch
+
 XF86AudioRaiseVolume
   pulseaudio-ctl up
 
