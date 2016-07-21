@@ -25,8 +25,8 @@ bspc config active_private_border_color  "#2b3032"
 bspc config normal_private_border_color  "#2b3032"
 bspc config urgent_border_color          "#2b3032"
 
-primary_monitor="eDP-1"
 num_monitors=$(bspc query -M | wc -l)
+primary_monitor=$(xrandr | grep -E "eDP" | awk '{print $1}')
 
 if [[ $num_monitors -eq 1 ]]; then
   bspc monitor $primary_monitor -n P
