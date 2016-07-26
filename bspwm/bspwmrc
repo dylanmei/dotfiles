@@ -27,6 +27,8 @@ bspc config urgent_border_color          "#2b3032"
 
 num_monitors=$(bspc query -M | wc -l)
 primary_monitor=$(xrandr | grep -E "eDP" | awk '{print $1}')
+#secondary_flags="--above $primary_monitor"
+secondary_flags="--same-as $primary_monitor"
 
 if [[ $num_monitors -eq 1 ]]; then
   bspc monitor $primary_monitor -n P
@@ -34,15 +36,21 @@ if [[ $num_monitors -eq 1 ]]; then
 else
   secondary_monitor=$(bspc query -M | grep -v $primary_monitor)
   xrandr --output $primary_monitor --primary \
-         --output $secondary_monitor --above $primary_monitor \
+         --output $secondary_monitor $secondary_flags \
          --output VIRTUAL1 --off
 
-  bspc monitor $primary_monitor -n B
-  bspc monitor B -d '' ''
-
-  bspc monitor $secondary_monitor -n T
-  bspc monitor T -d ''
-  bspc monitor T -s B
+  if echo $secondary_flags | grep -q "same-as"; then
+    bspc monitor $primary_monitor -n P
+    bspc monitor $secondary_monitor -n _
+    bspc monitor P -d '' '' ''
+    bspc monitor _ -d _
+  else
+    bspc monitor $primary_monitor -n B
+    bspc monitor $secondary_monitor -n T
+    bspc monitor B -d '' ''
+    bspc monitor T -d ''
+    bspc monitor T -s B
+  fi
 fi
 
 # window rules

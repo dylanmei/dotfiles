@@ -8,10 +8,6 @@
 . $HOME/.config/bspwm/power
 . $HOME/.config/bspwm/mixer
 
-desktop_link() {
-  printf "%s" "%{A:bspc desktop -f ${1}:} ${1} %{A}"
-}
-
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 pipe=$(mktemp -u)
 mkfifo $pipe
@@ -25,14 +21,69 @@ bspc config top_padding 25
 { power                 > $pipe; } &
 { mixer                 > $pipe; } &
 
+desktop_panel_link() {
+  printf "%s" "%{A:bspc desktop -f ${1}:} ${1} %{A}"
+}
+
+num_monitors=$(bspc query -M | wc -l)
+
+monitor_panel_item() {
+  name=$1
+  type=$2
+  [[ $num_monitors -eq 1 ]] && return 0
+  [[ $name == _ ]]          && return 0
+
+  [[ $name == T ]] && name=
+  [[ $name == B ]] && name=
+  [[ $name == P ]] && name=mirroring
+
+  [[ $type == m ]] && color=$COLOR_FOREGROUND
+  [[ $type == M ]] && color=$COLOR_FOCUSED_FOREGROUND
+
+  echo "%{F$color}%{B$COLOR_BACKGROUND}  ${name}  %{B-}%{F-}  "
+}
+
+desktop_panel_item() {
+  name=$1
+  type=$2
+
+  [[ $name == _ ]] && return 0
+  case $type in
+    O)
+      # focused occupied desktop
+      echo "%{F$COLOR_FOCUSED_FOREGROUND}%{B$COLOR_FOCUSED_BACKGROUND}%{U$COLOR_FOREGROUND}%{+u} $(desktop_panel_link $name) %{-u}%{B-}%{F-}"
+      ;;
+    F)
+      # focused free desktop
+      echo "%{F$COLOR_FOCUSED_FOREGROUND}%{B$COLOR_FOCUSED_BACKGROUND}%{U$COLOR_FOREGROUND}%{+u} $(desktop_panel_link $name) %{-u}%{B-}%{F-}"
+      ;;
+    U)
+      # focused urgent desktop
+      echo "%{F$COLOR_URGENT_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u} $(desktop_panel_link $name) %{-u}%{B-}%{F-}"
+      ;;
+    o)
+      # occupied desktop
+      echo "%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} $(desktop_panel_link $name) %{B-}%{F-}"
+      ;;
+    f)
+      # free desktop
+      echo "%{F$COLOR_EMPTY_FOREGROUND}%{B$COLOR_EMPTY_BACKGROUND} $(desktop_panel_link $name) %{B-}%{F-}"
+      ;;
+    u)
+      # urgent desktop
+      echo "%{F$COLOR_URGENT_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u} $(desktop_panel_link $name) %{-u}%{B-}%{F-}"
+      ;;
+  esac
+}
+
 bspwm_data=""
 title_data=""
 power_data=""
 clock_data=""
 mixer_data=""
 network_data=""
+
 while read line; do
-  num_monitors=$(bspc query -M | wc -l)
   case $line in
     T*)
       title_data="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
@@ -56,43 +107,14 @@ while read line; do
       set -- ${line#?}
       while [ $# -gt 0 ]; do
         item=$1
-        name=${item#?}
+
         case $item in
-          M*)
-            # active monitor
-            if [ $num_monitors -gt 1 ] ; then
-              bspwm_data="$bspwm_data %{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND}  ${name}  %{B-}%{F-}  "
-            fi
+          [mM]*)
+            bspwm_data="${bspwm_data}$(monitor_panel_item ${item#?} ${item:0:1})"
             ;;
-          m*)
-            # inactive monitor
-            if [ $num_monitors -gt 1 ] ; then
-              bspwm_data="$bspwm_data %{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND}  ${name}  %{B-}%{F-}  "
-            fi
-            ;;
-          O*)
-            # focused occupied desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_FOCUSED_FOREGROUND}%{B$COLOR_FOCUSED_BACKGROUND}%{U$COLOR_FOREGROUND}%{+u} $(desktop_link $name) %{-u}%{B-}%{F-}"
-            ;;
-          F*)
-            # focused free desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_FOCUSED_FOREGROUND}%{B$COLOR_FOCUSED_BACKGROUND}%{U$COLOR_FOREGROUND}%{+u} $(desktop_link $name) %{-u}%{B-}%{F-}"
-            ;;
-          U*)
-            # focused urgent desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_URGENT_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u} $(desktop_link $name) %{-u}%{B-}%{F-}"
-            ;;
-          o*)
-            # occupied desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} $(desktop_link $name) %{B-}%{F-}"
-            ;;
-          f*)
-            # free desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_EMPTY_FOREGROUND}%{B$COLOR_EMPTY_BACKGROUND} $(desktop_link $name) %{B-}%{F-}"
-            ;;
-          u*)
-            # urgent desktop
-            bspwm_data="${bspwm_data}%{F$COLOR_URGENT_FOREGROUND}%{B$COLOR_URGENT_BACKGROUND}%{U$COLOR_URGENT_FOREGROUND}%{+u} $(desktop_link $name) %{-u}%{B-}%{F-}"
+
+          [OFUofu]*)
+            bspwm_data="${bspwm_data}$(desktop_panel_item ${item#?} ${item:0:1})"
             ;;
         esac
         shift
