@@ -34,8 +34,6 @@ fi
 
 sh $HOME/.xrandr
 syndaemon -d -i 1 -t -k
-#xbindkeys -f $HOME/.config/xbindkeys/config &
-#exec i3
 
 sxhkd &
 exec bspwm
