@@ -17,6 +17,7 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'hashivim/vim-terraform'
 Plug 'fatih/vim-go'
 Plug 'elixir-lang/vim-elixir'
+Plug 'derekwyatt/vim-scala'
 
 call plug#end()
 
