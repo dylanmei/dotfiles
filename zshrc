@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "zsh-users/zsh-completions"
