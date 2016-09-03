@@ -1,6 +1,6 @@
 #!/bin/sh
 
-bspc config border_width   2
+bspc config border_width   3
 bspc config window_gap     15
 
 bspc config split_ratio           0.56
@@ -27,8 +27,8 @@ bspc config urgent_border_color          "#2b3032"
 
 num_monitors=$(bspc query -M | wc -l)
 primary_monitor=$(xrandr | grep -E "eDP" | awk '{print $1}')
-#secondary_flags="--above $primary_monitor"
-secondary_flags="--same-as $primary_monitor"
+secondary_flags="--above $primary_monitor"
+#secondary_flags="--same-as $primary_monitor"
 
 if [[ $num_monitors -eq 1 ]]; then
   bspc monitor $primary_monitor -n P
@@ -47,8 +47,8 @@ else
   else
     bspc monitor $primary_monitor -n B
     bspc monitor $secondary_monitor -n T
-    bspc monitor B -d '' ''
-    bspc monitor T -d ''
+    bspc monitor B -d ''
+    bspc monitor T -d '' ''
     bspc monitor T -s B
   fi
 fi
