@@ -22,7 +22,7 @@ highlight               = #839496
 # Hybrid ( i think )
 # For the custom color scheme
 foreground              = #c5c8c6
-background              = rgba(16, 16, 16, 0.9)
+background              = rgba(16, 16, 16, 0.85)
 cursor                  = #808080
 color0                  = #282a2e
 color1                  = #a54242
