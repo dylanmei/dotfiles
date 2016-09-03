@@ -2,27 +2,34 @@
 
 mixer() {
   while true; do
-    status=$(pulseaudio-ctl full-status)
-    level=$(echo $status | awk '{print $1}')
-    muted=$(echo $status | awk '{print $2}')
-
-    if [ "$muted" == "yes" ]; then
-      vol=mute
-      icon=''
-    elif [ $level -le 25 ]; then
-      vol=shhh
-      icon=''
-    elif [ $level -le 95 ]; then
-      vol="$level%"
-      icon=''
-    else
-      vol=boom
-      icon=''
+    status=$(pulseaudio-ctl full-status 2> /dev/null)
+    if [ ! -z "$status" ]; then
+      echo $(mixer_item $status)
     fi
 
-    echo "V${icon} ${vol}"
     sleep 5.0
   done
+}
+
+mixer_item() {
+  local level=$(echo $status | awk '{print $1}')
+  local muted=$(echo $status | awk '{print $2}')
+
+  if [ "$muted" == "yes" ]; then
+    vol=mute
+    icon=''
+  elif [ $level -le 25 ]; then
+    vol=shhh
+    icon=''
+  elif [ $level -le 95 ]; then
+    vol="$level%"
+    icon=''
+  else
+    vol=boom
+    icon=''
+  fi
+
+  echo "V${icon} ${vol}"
 }
 
 #mixer
