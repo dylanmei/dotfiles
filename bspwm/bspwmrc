@@ -61,6 +61,6 @@ bspc rule -a FromScratch state=floating
 
 # autostart
 xmodmap -e "add mod3 = Menu"
-feh --bg-scale $HOME/Pictures/ship.jpg
+feh --bg-scale $HOME/Pictures/spirited-away.jpg
 compton -cCGf --backend glx --paint-on-overlay --vsync opengl-swc &
 $HOME/.config/bspwm/panel &

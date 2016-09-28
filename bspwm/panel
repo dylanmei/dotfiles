@@ -8,14 +8,11 @@
 . $HOME/.config/bspwm/power
 . $HOME/.config/bspwm/mixer
 
-trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
-pipe=$(mktemp -u)
-mkfifo $pipe
-
 if [ $(bspc query -M | grep T) ]; then
   # multi monitor
   bspc config -m B top_padding 25
-  geometry="1920x25+1920"
+  #geometry="1920x25+1920"
+  geometry="1920x25+2560"
 
 elif [ $(bspc query -M | grep M) ]; then
   # mirroring
@@ -26,6 +23,10 @@ else
   bspc config top_padding 25
   geometry="1920x25"
 fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+pipe=$(mktemp -u)
+mkfifo $pipe
 
 { bspc subscribe report > $pipe; } &
 { xtitle -sf 'T%s'      > $pipe; } &
@@ -136,5 +137,5 @@ while read line; do
   esac
 
   echo "%{l} ${bspwm_data}%{c}${title_data}%{r}${network_data} ${mixer_data} ${power_data} ${clock_data} "
-done < $pipe | lemonbar -a 25 -g "$geometry" -f "FontAwesome:size=10" -f "Hack:size=10" -F $COLOR_FOREGROUND -B $COLOR_BACKGROUND | sh
+done < $pipe | lemonbar -a 25 -g "$geometry" -u 1 -f "FontAwesome:size=10" -f "DejaVu:size=10" -F $COLOR_FOREGROUND -B $COLOR_BACKGROUND | sh
 
