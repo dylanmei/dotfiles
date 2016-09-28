@@ -14,15 +14,6 @@ super + q
 mod3 + n
   fromscratch
 
-mod3 + s
-  slack
-
-mod3 + f
-  firefox
-
-mod3 + t
-  telegram-desktop
-
 XF86AudioRaiseVolume
   pulseaudio-ctl up
 
