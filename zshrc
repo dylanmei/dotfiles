@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+setopt interactivecomments
+
 source ~/.zplug/init.zsh
 
 zplug "b4b4r07/enhancd", use:init.sh
