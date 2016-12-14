@@ -1,6 +1,7 @@
 alias ~="cd ~"
 alias ..="ENHANCD_DISABLE_DOT=1 cd .."
 alias -- -="ENHANCD_DISABLE_HYPHEN=1 cd -"
+alias ls="ls --color=auto"
 alias ll="ls -lAFh --group-directories-first"
 alias tree="tree -C"
 alias ssh="TERM=rxvt-256color ssh"
