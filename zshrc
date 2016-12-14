@@ -12,7 +12,6 @@ zplug "horosgrisa/zsh-history-substring-search", nice:11
 
 # local plugins
 zplug "~/.zsh/zsh-pure", from:local
-zplug "~/.segreti", from:local, nice:1, use:"*.sh"
 
 if ! zplug check; then
   zplug install
