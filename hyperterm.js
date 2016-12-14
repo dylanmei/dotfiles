@@ -1,5 +1,6 @@
 module.exports = {
   config: {
+    bell: false,
     // default font size in pixels for all tabs
     fontSize: 16,
 
