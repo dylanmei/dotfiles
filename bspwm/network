@@ -2,23 +2,24 @@
 
 network() {
   while true; do
-    read int1 int2 int3 etc <<< $(ip link | grep -E "(enp|wlp)" | sed -n 's/.*: \(.*\):.*$/\1/p')
+    read int1 int2 int3 etc <<< $(ip link | grep -E "(enp|wlp)" | sed -n 's/.*: \(.*\):.*$/\1/p' | tr '\n' ' ')
 
     if [[ -d /proc/sys/net/ipv4/conf/tun0 ]]; then
       echo "N vpn"
     else
       if iwconfig $int1 >/dev/null 2>&1; then
-          wlan0=$int1
-          eth0=$int2
-          eth1=$int3
+        wlan0=$int1
+        eth0=$int2
+        eth1=$int3
       elif iwconfig $int2 >/dev/null 2>&1; then
-          eth0=$int1
-          wlan0=$int2
-          eth1=$int3
+        echo "here $int2 here"
+        eth0=$int1
+        wlan0=$int2
+        eth1=$int3
       elif iwconfig $int3 >/dev/null 2>&1; then
-          eth0=$int1
-          eth1=$int2
-          wlan0=$int3
+        eth0=$int1
+        eth1=$int2
+        wlan0=$int3
       fi
 
       interface=""
