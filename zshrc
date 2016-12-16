@@ -22,7 +22,6 @@ zplug load
 source ~/.zsh/cache.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/history.zsh
-source ~/.zsh/fzf.zsh
 source ~/.zsh/basher.zsh
 source ~/.zsh/golang.zsh
 source ~/.zsh/workdir.zsh
