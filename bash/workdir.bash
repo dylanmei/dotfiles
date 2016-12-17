@@ -18,7 +18,7 @@ function jump_to_lwd() {
 # Automatically jump to last working directory unless this
 # isn't the first time this plugin has been loaded.
 if [[ -z "$SHELL_WORKDIR" ]]; then
-  jump_to_lwd 2>/dev/null && SHELL_WORKDIR=1 || true
+	jump_to_lwd 2>/dev/null && SHELL_WORKDIR=1 || true
 fi
 
 PROMPT_COMMAND="remember_lwd; $PROMPT_COMMAND"
