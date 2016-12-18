@@ -4,6 +4,8 @@ if [[ -d ~/.bash ]]; then
   for f in ~/.bash/*.bash; do source $f; done
 fi
 
+[[ -f ~/proxy.env ]] && source ~/proxy.env
+
 alias ls='ls -F --color=auto'
 alias ll='ls -lAFh --group-directories-first'
 alias tree="tree -C"
