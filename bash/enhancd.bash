@@ -1,13 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-export ENHANCD_FILTER="/usr/bin/fzf"
-export ENHANCD_DOT_ARG=_dot
-export ENHANCD_HYPHEN_ARG=_hyphen
+[[ -d /usr/src/enhancd ]] && export ENHANCD_ROOT=/usr/src/enhancd
+[[ -d ~/src/enhancd ]]    && export ENHANCD_ROOT=~/src/enhancd
 
-if [[ -d /usr/src/enhancd ]]; then
-  source /usr/src/enhancd/init.sh
+if [[ -n "$ENHANCD_ROOT" ]]; then
+  export ENHANCD_FILTER="fzf"
+  export ENHANCD_DOT_ARG=_dot
+  export ENHANCD_HYPHEN_ARG=_hyphen
+
+  source $ENHANCD_ROOT/init.sh
+
+  alias ~='cd ~'
+  alias ..='cd _dot'
+  alias -- -='cd _hyphen'
 fi
-
-alias ~='cd ~'
-alias ..='cd _dot'
-alias -- -='cd _hyphen'
