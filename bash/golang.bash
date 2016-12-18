@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [[ -e /usr/bin/go ]]; then
+[[ -e /usr/bin/go ]]       && export GOBIN=/usr/bin/go
+[[ -e /usr/local/bin/go ]] && export GOBIN=/usr/local/bin/go
+
+if [[ -n "$GOBIN" ]]; then
   export GOPATH=~/src/go
   export PATH=$PATH:$GOPATH/bin
 fi
