@@ -8,6 +8,8 @@ export LC_CTYPE="${LANGUAGE}"
 export EDITOR=nvim
 export VISUAL=nvim
 
+export CLICOLOR=1
+
 #export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 

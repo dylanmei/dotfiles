@@ -6,7 +6,7 @@ fi
 
 [[ -f ~/proxy.env ]] && source ~/proxy.env
 
-alias ls='ls -F --color=auto'
+alias ls='ls -F'
 alias ll='ls -lAFh --group-directories-first'
 alias tree="tree -C"
 alias ssh="TERM=rxvt-256color ssh"
