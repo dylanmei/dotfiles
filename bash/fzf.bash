@@ -1,6 +1,9 @@
 #!/bin/bash
 
-if [[ -d /usr/share/fzf ]]; then
-  source /usr/share/fzf/completion.bash
-  source /usr/share/fzf/key-bindings.bash
+[[ -d /usr/share/fzf ]]           && scripts=/usr/share/fzf
+[[ -d /usr/local/opt/fzf/shell ]] && scripts=/usr/local/opt/fzf/shell
+
+if [[ -n "$scripts" ]]; then
+  source $scripts/completion.bash
+  source $scripts/key-bindings.bash
 fi
