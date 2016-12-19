@@ -1,20 +1,19 @@
 module.exports = {
   config: {
-    bell: false,
     // default font size in pixels for all tabs
     fontSize: 16,
 
     // font family with optional fallbacks
-    fontFamily: 'Hack, monospace',
+    fontFamily: 'Menlo, "DejaVu Sans Mono"',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: 'rgba(170,170,170,0.75)',
+    cursorColor: 'rgba(248,248,248,0.75)',
 
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
     cursorShape: 'BLOCK',
 
     // color of the text
-    foregroundColor: '#ccc',
+    foregroundColor: '#fff',
 
     // terminal background color
     backgroundColor: '#000',
@@ -23,13 +22,13 @@ module.exports = {
     borderColor: '#333',
 
     // custom css to embed in the main window
-    css: '',
+    css: ``,
 
     // custom css to embed in the terminal window
     termCSS: '',
 
     // custom padding (css format, i.e.: `top right bottom left`)
-    padding: '5px 12px',
+    padding: '12px 14px',
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -39,7 +38,7 @@ module.exports = {
       red: '#ff0000',
       green: '#33ff00',
       yellow: '#ffff00',
-      blue: '#3366ff',
+      blue: '#7788ff',
       magenta: '#cc00ff',
       cyan: '#00ffff',
       white: '#d0d0d0',
@@ -55,9 +54,29 @@ module.exports = {
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
-    shell: ''
+    shell: '/usr/local/bin/bash',
 
-    // for advanced config flags please refer to https://hyperterm.org/#cfg
+    // for setting shell arguments (i.e. for using interactive shellArgs: ['-i'])
+    // by default ['--login'] will be used
+    //shellArgs: ['--login'],
+
+    // for environment variables
+    env: {},
+
+    // set to false for no bell
+    //bell: 'SOUND',
+    bell: false,
+
+    // if true, selected text will automatically be copied to the clipboard
+    copyOnSelect: false,
+
+    // URL to custom bell
+    // bellSoundURL: 'http://example.com/bell.mp3',
+
+    // for advanced config flags please refer to https://hyper.is/#cfg
+    modifierKeys: {
+      altIsMeta: true
+    }
   },
 
   // a list of plugins to fetch and install from npm
@@ -67,11 +86,13 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperterm-snazzy'
+    'hyperterm-chesterish',
+    'hyper-blink',
+    'hyper-statusline',
   ],
 
   // in development, you can create a directory under
-  // `~/.hyperterm_plugins/local/` and include it here
+  // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
   localPlugins: []
 };
