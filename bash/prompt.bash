@@ -18,7 +18,6 @@ else
   prompt_symbol_color="$prompt_bold$(tput setaf 7)" # BOLD WHITE
 fi
 
-# Define the default prompt terminator character '$'
 if [[ "$UID" == 0 ]]; then
   prompt_symbol="#"
 else
@@ -34,4 +33,4 @@ prompt_working_dir () {
   echo -ne '\e]0;'${PWD##*/}'\a'
 }
 
-PS1="\n\$( prompt_working_dir )\[$prompt_symbol_color\]$prompt_symbol \[$prompt_reset\]"
+PS1="$( prompt_working_dir )\n\[$prompt_symbol_color\]$prompt_symbol \[$prompt_reset\]"
