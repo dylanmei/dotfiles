@@ -26,3 +26,6 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[00;44;37m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+
+export AWS_REGION=us-west-2
+export AWS_DEFAULT_REGION=us-west-2
