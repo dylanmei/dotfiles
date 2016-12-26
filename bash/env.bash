@@ -13,6 +13,8 @@ export CLICOLOR=1
 #export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
+export GREP_COLOR="1;33"
+
 # Pager
 export PAGER=less
 export LESS='-R -f -X -i -P ?f%f:(stdin). ?lb%lb?L/%L.. [?eEOF:?pb%pb\%..]'
