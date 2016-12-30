@@ -10,6 +10,7 @@ Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'jonhiggs/vim-readline'
+Plug 'junegunn/vim-easy-align'
 
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
@@ -113,6 +114,9 @@ let g:ctrlp_map = '<Leader>p'
 nnoremap <Leader>p :CtrlP<cr>
 nnoremap <Leader>b :CtrlPBuffer<cr>
 nnoremap <Leader>m :CtrlPMRU<cr>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
 let g:ag_working_path_mode="r"
 nnoremap <Leader>g :Ag 
