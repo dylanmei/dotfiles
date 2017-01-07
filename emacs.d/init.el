@@ -20,10 +20,6 @@
 (eval-when-compile
   (require 'use-package))
 
-(defvar backup-dir "~/.emacs.d/backups/")
-(setq backup-directory-alist (list (cons "." backup-dir)))
-(setq make-backup-files nil)
-
 ;; Essential settings
 (setq inhibit-splash-screen t
       inhibit-startup-message t
@@ -31,10 +27,14 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq vc-follow-symlinks t)
 
 ;; Package-specific configs
 (require 'init-evil)
 (require 'init-smartparens)
+(require 'init-auto-save)
 
 (use-package company
   :ensure t
@@ -61,7 +61,7 @@
   :config
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist
-(list (cons "." (expand-file-name "undo-tree-history" user-emacs-directory)))))
+  (list (cons "." (expand-file-name "undo-tree-history" user-emacs-directory)))))
 
 (require 'lang-elixir)
 (provide 'init)
