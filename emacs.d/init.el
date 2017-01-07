@@ -46,14 +46,35 @@
   (setq company-selection-wrap-around t)
   (define-key company-active-map [tab] 'company-complete)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous))
+  (define-key company-active-map (kbd "C-p") 'company-select-previous))
+
+(use-package fzf
+  :ensure t)
+
+(use-package helm
+  :ensure t
+  :diminish helm-mode
+  :commands helm-mode
+  :config
+  (setq helm-buffers-fuzzy-matching t
+	helm-recentf-fuzzy-match t
+        helm-autoresize-mode t
+        helm-split-window-in-side-p t
+        helm-scroll-amount 8
+        helm-move-to-line-cycle-in-source t
+        helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t)
+  (setq helm-autoresize-max-height 0)
+  (setq helm-autoresize-min-height 20)
+  (helm-autoresize-mode 1)
+  (helm-mode 1))
 
 (use-package projectile
   :ensure t
   :defer 1
   :config
   (projectile-global-mode)
-(setq projectile-enable-caching t))
+  (setq projectile-enable-caching t))
 
 (use-package undo-tree
   :ensure t

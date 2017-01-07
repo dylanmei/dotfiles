@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-smartparens smartparens projectile alchemist use-package evil-visual-mark-mode))))
+    (fzf evil-leader helm real-auto-save evil-smartparens smartparens projectile alchemist use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
