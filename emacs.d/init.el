@@ -1,4 +1,5 @@
 (package-initialize)
+
 (require 'package)
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -33,7 +34,7 @@
 
 ;; Package-specific configs
 (require 'init-evil)
-(require 'lang-elixir)
+(require 'init-smartparens)
 
 (use-package company
   :ensure t
@@ -62,4 +63,5 @@
   (setq undo-tree-history-directory-alist
 (list (cons "." (expand-file-name "undo-tree-history" user-emacs-directory)))))
 
+(require 'lang-elixir)
 (provide 'init)
