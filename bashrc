@@ -13,7 +13,7 @@ else
 fi
 
 alias ll='ls -lAFh --group-directories-first'
-alias tree="tree -C"
+alias tree="tree -a -C -I .git"
 alias ssh="TERM=rxvt-256color ssh"
 alias grep='grep --color=auto'
 alias vim='nvim'
