@@ -103,7 +103,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <S-n> :call NumberToggle()<cr>
 
 " netrw
 let g:netrw_liststyle=3
