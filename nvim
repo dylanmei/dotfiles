@@ -131,6 +131,9 @@ au FileType go nmap <Leader><S-d> <Plug>(go-def)
 au FileType go nmap <Leader><S-t> <Plug>(go-test)
 au FileType go nmap <Leader><S-c> <Plug>(go-coverage-toggle)
 au FileType go nmap <Leader><S-r> <Plug>(go-run)
+au FileType go nmap <C-q>p :cprev<cr>
+au FileType go nmap <C-q>n :cnext<cr>
+au FileType go nmap <C-q>q :cclose<cr>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -142,12 +145,11 @@ function! s:build_go_files()
   endif
 endfunction
 
-"au FileType go nmap <Leader><S-b> <Plug>(go-build)
-au FileType go nmap <Leader><S-b> :<C-u>call <SID>build_go_files()<CR>
+au FileType go nmap <Leader><S-b> :<C-u>call <SID>build_go_files()<cr>
 
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
-"let g:go_auto_type_info = 0
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
