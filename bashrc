@@ -6,7 +6,12 @@ fi
 
 [[ -f ~/proxy.env ]] && source ~/proxy.env
 
-alias ls='ls -F'
+if [[ -e /usr/local/bin/gls ]]; then
+  alias ls='/usr/local/bin/gls -F --color'
+else
+  alias ls='ls -F'
+fi
+
 alias ll='ls -lAFh --group-directories-first'
 alias tree="tree -C"
 alias ssh="TERM=rxvt-256color ssh"
