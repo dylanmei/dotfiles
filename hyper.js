@@ -1,10 +1,10 @@
 module.exports = {
   config: {
     // default font size in pixels for all tabs
-    fontSize: 16,
+    fontSize: 18,
 
     // font family with optional fallbacks
-    fontFamily: 'Menlo, "DejaVu Sans Mono"',
+    fontFamily: 'Oxygen Mono, Menlo, "DejaVu Sans Mono"',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: 'rgba(248,248,248,0.75)',
@@ -76,7 +76,14 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
     modifierKeys: {
       altIsMeta: true
-    }
+    },
+
+    hyperTabs: {
+      trafficButtons: true,
+      border: true,
+      tabIcons: true,
+//      activityColor: "blue",
+    },
   },
 
   // a list of plugins to fetch and install from npm
@@ -86,13 +93,15 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperterm-chesterish',
-    'hyper-blink',
+    'hyper-chesterish',
+    'hyper-tabs-enhanced',
+    //'hyper-blink',
+    'hyperterm-cursor',
     'hyper-statusline',
   ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: []
+  localPlugins: [],
 };
