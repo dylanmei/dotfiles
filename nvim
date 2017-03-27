@@ -6,11 +6,12 @@ Plug 'mhinz/vim-janah'
 
 Plug 'Shougo/deoplete.nvim'
 
-Plug 'scrooloose/syntastic'
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'jonhiggs/vim-readline'
 Plug 'junegunn/vim-easy-align'
+"Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
@@ -59,7 +60,9 @@ let g:lightline = {
 
 set list " show invisible characters
 set listchars=" " reset the listchars
-set listchars=tab:\ \ " a tab should display as " "
+"set listchars=tab:-> " a tab should display as " "
+set listchars=tab:>·
+"set listchars=tab:\ \ " a tab should display as " "
 " show trailing spaces as dots
 set listchars+=trail:· 
 " the character to show in the last column when wrap is off and the line continues beyond the right of the screen
@@ -103,7 +106,8 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <S-n> :call NumberToggle()<cr>
+"nnoremap nn :call NumberToggle()<cr>
+nnoremap <C-n> :call NumberToggle()<cr>
 
 " netrw
 let g:netrw_liststyle=3
@@ -129,6 +133,7 @@ au FileType go nmap <Leader><S-i> <Plug>(go-info)
 au FileType go nmap <Leader><S-s> <Plug>(go-implements)
 au FileType go nmap <Leader><S-d> <Plug>(go-def)
 au FileType go nmap <Leader><S-t> <Plug>(go-test)
+au FileType go nmap <Leader><S-f> <Plug>(go-test-func)
 au FileType go nmap <Leader><S-c> <Plug>(go-coverage-toggle)
 au FileType go nmap <Leader><S-r> <Plug>(go-run)
 au FileType go nmap <C-q>p :cprev<cr>
