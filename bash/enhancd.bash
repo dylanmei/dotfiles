@@ -10,5 +10,6 @@ if [[ -n "$ENHANCD_ROOT" ]]; then
 
   alias ~='ENHANCD_DISABLE_HOME=1 cd ~'
   alias ..='ENHANCD_DISABLE_DOT=1 cd ..'
+  alias ...='ENHANCD_DISABLE_DOT=1 cd ../..'
   alias -- -='ENHANCD_DISABLE_HYPHEN=1 cd -'
 fi
