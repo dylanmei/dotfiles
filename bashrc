@@ -12,6 +12,9 @@ else
   alias ls='ls -F'
 fi
 
+[[ -e /usr/local/opt/curl/bin ]] && \
+  alias curl=/usr/local/opt/curl/bin/curl
+
 alias ll='ls -lAFh --group-directories-first'
 alias tree="tree -a -C -I .git"
 alias ssh="TERM=rxvt-256color ssh"
