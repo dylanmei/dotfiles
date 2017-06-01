@@ -95,7 +95,7 @@ module.exports = {
   plugins: [
     'hyper-chesterish',
     'hyper-tabs-enhanced',
-    //'hyper-blink',
+    'hyper-blink',
     'hyperterm-cursor',
     'hyper-statusline',
   ],
