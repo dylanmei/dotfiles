@@ -4,7 +4,8 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-janah'
 
-Plug 'Shougo/deoplete.nvim'
+"Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
@@ -20,6 +21,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'elixir-lang/vim-elixir'
 Plug 'derekwyatt/vim-scala'
 Plug 'nathanielc/vim-tickscript'
+Plug 'google/vim-jsonnet'
 
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 "Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
@@ -50,6 +52,7 @@ set conceallevel=0
 nnoremap <esc><esc> :nohl<cr>
 
 colorscheme janah
+highlight Whitespace ctermfg=91
 
 " lightline
 set laststatus=2
