@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-export LANGUAGE="en_US.UTF-8"
-export LANG="${LANGUAGE}"
-export LC_ALL="${LANGUAGE}"
-export LC_CTYPE="${LANGUAGE}"
+export LANG="en_US.UTF-8"
+export LC_ALL="${LANG}"
 
+export TERM=xterm-256color
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -31,3 +30,11 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 export AWS_REGION=us-west-2
 export AWS_DEFAULT_REGION=us-west-2
+
+alias ll='ls -lAFh --group-directories-first'
+alias tree="tree -a -C -I .git"
+alias ssh="TERM=rxvt-256color ssh"
+alias grep='grep --color=auto'
+alias vim='nvim'
+alias fig="docker-compose"
+alias tf="terraform"
