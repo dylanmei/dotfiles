@@ -11,8 +11,8 @@ Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'jonhiggs/vim-readline'
 Plug 'junegunn/vim-easy-align'
-"Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
+Plug 'scrooloose/nerdtree'
 
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
@@ -114,6 +114,10 @@ nnoremap <C-n> :call NumberToggle()<cr>
 
 " netrw
 let g:netrw_liststyle=3
+
+map <Leader>f :NERDTreeToggle<CR>
+let NERDTreeHijackNetrw=1
+let NERDTreeQuitOnOpen=1
 
 " ctrl-p and ag
 let g:ctrlp_working_path_mode = 'ra'
