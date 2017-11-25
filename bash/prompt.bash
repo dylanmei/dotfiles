@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 POWERBASH_PATH=mini
 POWERBASH_PROMPT=%%
 
@@ -11,22 +12,6 @@ powerbash() {
     prompt)
       case "$2" in
         on|off|system) export PROMPT_COMMAND="__powerbash_ps1 $2" ;;
-        *) echo "invalid option" ;;
-      esac
-    ;;
-    config)
-      case "$2" in
-        default|load|save) __powerbash_config $2 ;;
-        *) echo "invalid option" ;;
-      esac
-    ;;
-    py)
-      case "$2" in
-        virtualenv)
-          case "$3" in
-            on|off|auto) export "POWERBASH_${1^^}_${2^^}"="$3" ;;
-          esac
-          ;;
         *) echo "invalid option" ;;
       esac
     ;;
@@ -72,13 +57,11 @@ __powerbash_complete() {
 
   if [ $COMP_CWORD -eq 1 ]; then
     # first level options
-    option_list="reload prompt config py user host path git jobs symbol rc term"
+    option_list="reload prompt user host path git jobs symbol rc term"
   elif [ $COMP_CWORD -eq 2 ]; then
     # second level options
     case "${prev}" in
       prompt) option_list="on off system" ;;
-      config) option_list="default load save" ;;
-          py) option_list="virtualenv" ;;
         user) option_list="on off" ;;
         host) option_list="on off auto" ;;
         path) option_list="off full working short parted mini" ;;
@@ -112,27 +95,6 @@ __powerbash() {
   RESET="\[$(tput sgr0)\]"
   BOLD="\[$(tput bold)\]"
 
-  __powerbash_config() {
-    case "$1" in
-      default)
-        [ -e "${POWERBASH_CONFIG}" ] && rm ${POWERBASH_CONFIG}
-        while read -r param; do
-          unset "${param}"
-        done <<< "`env | grep \"POWERBASH_\" | sed \"s/=.*//g\"`"
-        ;;
-      load)
-        if [ -e "${POWERBASH_CONFIG}" ]; then
-          while read p; do
-            export $p
-          done < ${POWERBASH_CONFIG}
-        fi
-        ;;
-      save)
-        echo -n "" > ${POWERBASH_CONFIG}
-        env | grep "POWERBASH_" >> ${POWERBASH_CONFIG}
-        ;;
-    esac
-  }
   __powerbash_colors() {
     if (( $(tput colors) < 256 )); then
       # 8 color support
@@ -159,15 +121,6 @@ __powerbash() {
       COLOR_SYMBOL_USER="\[$(tput setaf 15)\]"
       COLOR_SYMBOL_ROOT="\[$(tput setaf 15)\]\[$(tput setab 1)\]"
     fi
-  }
-  __powerbash_py_virtualenv_display() {
-    [ -z "$POWERBASH_PY_VIRTUALENV" ] && POWERBASH_PY_VIRTUALENV="on" # sane default
-    [ "$POWERBASH_PY_VIRTUALENV" == "off" ] && return # disable display
-    [ -n "$VIRTUAL_ENV" ] || return # virtualenvironment not found
-    # get virtualenv name
-    local venv="$(basename $VIRTUAL_ENV)"
-    [ -n "$venv" ] || return
-    printf "$COLOR_PY_VIRTUALENV $POWERBASH_PY_VIRTUALENV_SYMBOL $venv $RESET"
   }
   __powerbash_git_display() {
     [ -z "$POWERBASH_GIT" ] && POWERBASH_GIT="on" # sane default
@@ -279,9 +232,6 @@ __powerbash() {
         __powerbash_colors
         # set prompt
         PS1="\n"
-        #PS1+="$(__powerbash_py_virtualenv_display)"
-        #PS1+="$(__powerbash_user_display)"
-        #PS1+="$(__powerbash_host_display)"
         PS1+="$(__powerbash_path_display)"
         PS1+="$(__powerbash_git_display)"
         PS1+="\n"
@@ -301,10 +251,6 @@ __powerbash() {
 # start powerbash
 __powerbash
 unset __powerbash
-
-# load saved configuration
-POWERBASH_CONFIG="$HOME/.powerbash_config"
-[[ -e "$POWERBASH_CONFIG" ]] && __powerbash_config load
 
 # enable auto completion
 complete -F __powerbash_complete powerbash
