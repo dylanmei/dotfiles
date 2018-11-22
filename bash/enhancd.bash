@@ -4,7 +4,7 @@
 [[ -d $HOME/src/enhancd ]] && export ENHANCD_ROOT=$HOME/src/enhancd
 
 if [[ -n "$ENHANCD_ROOT" ]]; then
-  export ENHANCD_FILTER="fzf"
+  export ENHANCD_FILTER="fzy"
 
   source $ENHANCD_ROOT/init.sh
 
