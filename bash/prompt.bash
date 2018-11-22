@@ -59,7 +59,7 @@ __myprompt() {
     printf "$COLOR_AWS $profile $RESET"
   }
   __k8s_display() {
-    local context="$(kubectl config current-context)"
+    local context="$(kubectl config current-context 2> /dev/null)"
     [ -n "$context" ] || return
     printf "$COLOR_K8S $context $RESET"
   }
