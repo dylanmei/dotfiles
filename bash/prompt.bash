@@ -39,6 +39,16 @@ __myprompt() {
       COLOR_JOBS="\[$(tput setaf 15)\]\[$(tput setab 5)\]"
     fi
   }
+  __workdir() {
+    local current_path="${PWD/$HOME/\~}"
+    IFS='/' read -a dir_array <<< "$current_path"
+    local path=""
+    local dir_len=$((${#dir_array[@]}-1))
+    for dir in ${dir_array[@]:0:$dir_len}; do
+      [[ $dir == '~' ]] && path="${dir:0:1}" || path="$path/${dir:0:1}"
+    done
+    printf "$path/${dir_array[$dir_len]}"
+  }
   __git_display() {
     local branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || git describe --tags --always 2>/dev/null)"
     [ -n "$branch" ] || return  # git branch not found
@@ -64,14 +74,7 @@ __myprompt() {
     printf "$COLOR_K8S $context $RESET"
   }
   __path_display() {
-    local current_path="${PWD/$HOME/\~}"
-    IFS='/' read -a dir_array <<< "$current_path"
-    local path=""
-    local dir_len=$((${#dir_array[@]}-1))
-    for dir in ${dir_array[@]:0:$dir_len}; do
-      [[ $dir == '~' ]] && path="${dir:0:1}" || path="$path/${dir:0:1}"
-    done
-    path="$path/${dir_array[$dir_len]}"
+    local path="${1-$(__workdir)}"
     printf "$COLOR_DIR$path $RESET"
   }
   __jobs_display() {
@@ -88,14 +91,15 @@ __myprompt() {
   __ps1() {
     # keep this at top!!!
     # capture latest return code
-    local RETURN_CODE=$?
-    local JOB_COUNT="$(jobs | wc -l)"
+    local return_code=$?
+    local job_count="$(jobs | wc -l)"
+    local workdir="$(__workdir)"
 
     # check for supported colors
     __colors
     # set prompt
-    PS1="\n"
-    PS1+="$(__path_display)"
+    PS1="\e]0;$workdir\a\n"
+    PS1+="$(__path_display $workdir)"
     PS1+="$(__k8s_display)"
     PS1+="$(__aws_display)"
     PS1+="$(__git_display)"
