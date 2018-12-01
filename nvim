@@ -20,7 +20,6 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'hashivim/vim-terraform'
 Plug 'elixir-lang/vim-elixir'
 Plug 'derekwyatt/vim-scala'
-Plug 'nathanielc/vim-tickscript'
 Plug 'google/vim-jsonnet'
 
 Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -168,6 +167,11 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+" setup elixir
+au FileType elixir nmap <Leader><S-d> :ALEGoToDefinition<cr>
+let g:ale_completion_enabled = 1
+let g:ale_elixir_elixir_ls_release = $HOME.'/src/elixir-ls/rel'
 
 " ensure filetypes
 au BufNewFile,BufReadPost *.md set filetype=markdown conceallevel=2
