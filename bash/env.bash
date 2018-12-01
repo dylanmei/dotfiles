@@ -31,6 +31,8 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export AWS_REGION=us-west-2
 export AWS_DEFAULT_REGION=us-west-2
 
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 alias ll='ls -lAFh --group-directories-first'
 alias tree="tree -a -C -I .git"
 alias ssh="TERM=rxvt-256color ssh"
