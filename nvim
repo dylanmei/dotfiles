@@ -4,27 +4,29 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-janah'
 
-"Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'jonhiggs/vim-readline'
 Plug 'junegunn/vim-easy-align'
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree'
 
-Plug 'elzr/vim-json'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
-Plug 'chase/vim-ansible-yaml'
 Plug 'hashivim/vim-terraform'
 Plug 'elixir-lang/vim-elixir'
-Plug 'derekwyatt/vim-scala'
-Plug 'google/vim-jsonnet'
+Plug 'udalov/kotlin-vim'
 
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-"Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'fatih/vim-go'
+"Plug 'slashmili/alchemist.vim'
+"Plug 'google/vim-jsonnet'
+"Plug 'posva/vim-vue'
+"
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
+"Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -131,51 +133,73 @@ xmap ga <Plug>(EasyAlign)
 let g:ag_working_path_mode="r"
 nnoremap <Leader>g :Ag 
 
+" COC configurations
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <leader><S-n> <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader><S-f> <Plug>(coc-format-selected)
+nmap <leader><S-f> <Plug>(coc-format-selected)
+
 " setup deoplete
-let g:deoplete#enable_at_startup = 1
-
-" setup go
-au FileType go nmap <Leader><S-i> <Plug>(go-info)
-au FileType go nmap <Leader><S-s> <Plug>(go-implements)
-au FileType go nmap <Leader><S-d> <Plug>(go-def)
-au FileType go nmap <Leader><S-t> <Plug>(go-test)
-au FileType go nmap <Leader><S-f> <Plug>(go-test-func)
-au FileType go nmap <Leader><S-c> <Plug>(go-coverage-toggle)
-au FileType go nmap <Leader><S-r> <Plug>(go-run)
-au FileType go nmap <C-q>p :cprev<cr>
-au FileType go nmap <C-q>n :cnext<cr>
-au FileType go nmap <C-q>q :cclose<cr>
-
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#cmd#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
-
-au FileType go nmap <Leader><S-b> :<C-u>call <SID>build_go_files()<cr>
-
-let g:go_fmt_command = "goimports"
-let g:go_list_type = "quickfix"
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-
-" setup elixir
-au FileType elixir nmap <Leader><S-d> :ALEGoToDefinition<cr>
-let g:ale_completion_enabled = 1
-let g:ale_elixir_elixir_ls_release = $HOME.'/src/elixir-ls/rel'
+"let g:deoplete#enable_at_startup = 1
+"
+"" setup go
+"au FileType go nmap <Leader><S-i> <Plug>(go-info)
+"au FileType go nmap <Leader><S-s> <Plug>(go-implements)
+"au FileType go nmap <Leader><S-d> <Plug>(go-def)
+"au FileType go nmap <Leader><S-t> <Plug>(go-test)
+"au FileType go nmap <Leader><S-f> <Plug>(go-test-func)
+"au FileType go nmap <Leader><S-c> <Plug>(go-coverage-toggle)
+"au FileType go nmap <Leader><S-r> <Plug>(go-run)
+"au FileType go nmap <C-q>p :cprev<cr>
+"au FileType go nmap <C-q>n :cnext<cr>
+"au FileType go nmap <C-q>q :cclose<cr>
+"
+"" run :GoBuild or :GoTestCompile based on the go file
+"function! s:build_go_files()
+"  let l:file = expand('%')
+"  if l:file =~# '^\f\+_test\.go$'
+"    call go#cmd#Test(0, 1)
+"  elseif l:file =~# '^\f\+\.go$'
+"    call go#cmd#Build(0)
+"  endif
+"endfunction
+"
+"au FileType go nmap <Leader><S-b> :<C-u>call <SID>build_go_files()<cr>
+"
+"let g:go_version_warning = 0
+"
+"let g:go_fmt_command = "goimports"
+"let g:go_list_type = "quickfix"
+"
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_types = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+"
+"" setup elixir
+"au FileType elixir nmap <Leader><S-d> :ALEGoToDefinition<cr>
+"let g:ale_completion_enabled = 1
+"let g:ale_elixir_elixir_ls_release = $HOME.'/src/elixir-ls/rel'
 
 " ensure filetypes
+au BufNewFile,BufReadPost *.ex set filetype=elixir
+au BufNewFile,BufReadPost *.kt set filetype=kotlin
+au BufNewFile,BufReadPost *.avsc set filetype=json
 au BufNewFile,BufReadPost *.md set filetype=markdown conceallevel=2
 
 " override tabs and spaces
 au FileType make set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
-au FileType go   set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
+au FileType go set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
+au FileType kotlin set softtabstop=4 tabstop=4 shiftwidth=4
+au FileType java set softtabstop=4 tabstop=4 shiftwidth=4
