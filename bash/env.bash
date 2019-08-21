@@ -33,6 +33,12 @@ export AWS_DEFAULT_REGION=us-west-2
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+if [[ -e /usr/local/bin/gls ]]; then
+  alias ls='/usr/local/bin/gls -F --color'
+else
+  alias ls='ls -F'
+fi
+
 alias ll='ls -lAFh --group-directories-first'
 alias tree="tree -a -C -I .git"
 alias ssh="TERM=rxvt-256color ssh"
