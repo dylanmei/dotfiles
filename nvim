@@ -23,7 +23,7 @@ Plug 'udalov/kotlin-vim'
 
 "Plug 'slashmili/alchemist.vim'
 "Plug 'google/vim-jsonnet'
-"Plug 'posva/vim-vue'
+Plug 'posva/vim-vue'
 "
 "Plug 'zchee/deoplete-go', { 'do': 'make'}
 "Plug 'fatih/vim-go'
@@ -203,3 +203,6 @@ au FileType make set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
 au FileType go set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
 au FileType kotlin set softtabstop=4 tabstop=4 shiftwidth=4
 au FileType java set softtabstop=4 tabstop=4 shiftwidth=4
+
+" extra behaviors
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
