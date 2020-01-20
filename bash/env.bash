@@ -30,6 +30,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 export AWS_REGION=us-west-2
 export AWS_DEFAULT_REGION=us-west-2
+#export AWS_SDK_LOAD_CONFIG=1
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
