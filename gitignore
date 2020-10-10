@@ -1,5 +1,6 @@
 *.swp
 .elixir_ls/
+.idea/
 .settings/
 .project
 .classpath
