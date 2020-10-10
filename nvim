@@ -12,17 +12,19 @@ Plug 'jonhiggs/vim-readline'
 Plug 'junegunn/vim-easy-align'
 "Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-"Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'hashivim/vim-terraform'
 Plug 'elixir-lang/vim-elixir'
 Plug 'udalov/kotlin-vim'
+Plug 'stephpy/vim-yaml'
+"Plug 'elzr/vim-json'
+"Plug 'google/vim-jsonnet'
 
 "Plug 'slashmili/alchemist.vim'
-"Plug 'google/vim-jsonnet'
 Plug 'posva/vim-vue'
 "
 "Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -33,6 +35,10 @@ call plug#end()
 syntax on
 set encoding=utf-8
 "set t_Co=256
+
+"set ttymouse=sgr
+set mouse=a
+set title
 
 let mapleader=" "
 set noswapfile
@@ -197,12 +203,14 @@ au BufNewFile,BufReadPost *.ex set filetype=elixir
 au BufNewFile,BufReadPost *.kt set filetype=kotlin
 au BufNewFile,BufReadPost *.avsc set filetype=json
 au BufNewFile,BufReadPost *.md set filetype=markdown conceallevel=2
+au BufNewFile,BufReadPost *.hcl set filetype=terraform
 
 " override tabs and spaces
 au FileType make set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
 au FileType go set softtabstop=4 tabstop=4 shiftwidth=4 noexpandtab
-au FileType kotlin set softtabstop=4 tabstop=4 shiftwidth=4
 au FileType java set softtabstop=4 tabstop=4 shiftwidth=4
+au FileType kotlin set softtabstop=4 tabstop=4 shiftwidth=4
+au FileType gradle set softtabstop=4 tabstop=4 shiftwidth=4
 
 " extra behaviors
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
